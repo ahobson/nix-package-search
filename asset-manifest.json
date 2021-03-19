@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/nix-package-search/static/css/main.bd2f8023.chunk.css",
+    "main.js": "/nix-package-search/static/js/main.f18d19a7.chunk.js",
+    "main.js.map": "/nix-package-search/static/js/main.f18d19a7.chunk.js.map",
+    "runtime-main.js": "/nix-package-search/static/js/runtime-main.76e07b94.js",
+    "runtime-main.js.map": "/nix-package-search/static/js/runtime-main.76e07b94.js.map",
+    "static/js/2.e5ff64ae.chunk.js": "/nix-package-search/static/js/2.e5ff64ae.chunk.js",
+    "static/js/2.e5ff64ae.chunk.js.map": "/nix-package-search/static/js/2.e5ff64ae.chunk.js.map",
+    "static/js/3.c3eec694.chunk.js": "/nix-package-search/static/js/3.c3eec694.chunk.js",
+    "static/js/3.c3eec694.chunk.js.map": "/nix-package-search/static/js/3.c3eec694.chunk.js.map",
+    "index.html": "/nix-package-search/index.html",
+    "static/css/main.bd2f8023.chunk.css.map": "/nix-package-search/static/css/main.bd2f8023.chunk.css.map",
+    "static/js/2.e5ff64ae.chunk.js.LICENSE.txt": "/nix-package-search/static/js/2.e5ff64ae.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.76e07b94.js",
+    "static/js/2.e5ff64ae.chunk.js",
+    "static/css/main.bd2f8023.chunk.css",
+    "static/js/main.f18d19a7.chunk.js"
+  ]
+}
