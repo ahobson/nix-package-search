@@ -151,12 +151,15 @@ const ALL_PACKAGES = 'public/nix/nixpkgs-unstable/all_packages.csv'
 async function generateUpdate(): Promise<void> {
   // get the latest info from the gh-pages branch
 
+  const fetch = child.spawnSync('git', ['fetch', 'origin'])
+  runOrExit('git fetch', fetch)
+
   const restore = child.spawnSync('git', [
     '--work-tree',
     'public',
     'restore',
     '-s',
-    'gh-pages',
+    'origin/gh-pages',
     'nix',
   ])
   runOrExit('git restore', restore)
