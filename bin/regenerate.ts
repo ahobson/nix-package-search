@@ -218,7 +218,6 @@ async function generateUpdate(): Promise<void> {
 
   let lastSeenDate = Date.parse(lastSeen)
   const seenLimit = 2 * 24 * 60 * 60 * 1000
-  let priorSeen: string | undefined = undefined
 
   // git log shows newest first and we need to process oldest first
   const revs = revlist.output
@@ -233,7 +232,6 @@ async function generateUpdate(): Promise<void> {
     lastLine = line
     const [sha, ymd, hms, tzoff] = line.split(' ')
     const commitDateStr = [ymd, hms, tzoff].join(' ')
-    priorSeen = commitDateStr
     const seenDate = Date.parse(commitDateStr)
     if (seenDate > lastSeenDate && seenDate - lastSeenDate > seenLimit) {
       await updateAllPackages(allPackagesFile, sha)
