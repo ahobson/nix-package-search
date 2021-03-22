@@ -149,6 +149,17 @@ const LAST_SEEN = 'public/nix/nixpkgs-unstable/last_seen.txt'
 const ALL_PACKAGES = 'public/nix/nixpkgs-unstable/all_packages.csv'
 
 async function generateUpdate(): Promise<void> {
+  // get the latest info from the gh-pages branch
+
+  const restore = child.spawnSync('git', [
+    '--work-tree',
+    'public',
+    'restore',
+    '-s',
+    'gh-pages',
+    'nix',
+  ])
+  runOrExit('git restore', restore)
   const lastSeenFile = path.resolve(LAST_SEEN)
   const distDir = path.resolve('/tmp')
   if (!fs.existsSync(distDir)) {
