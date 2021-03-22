@@ -1,12 +1,12 @@
 name: Nightly Package Update
-# use branch pushes for testing
-on:
-  push:
-    branches:
-      - main
+# # use branch pushes for testing
 # on:
-#   schedule:
-#     - cron: '15 1 * * * '
+#   push:
+#     branches:
+#       - main
+on:
+  schedule:
+    - cron: '15 1 * * * '
 
 jobs:
   regenerate:
