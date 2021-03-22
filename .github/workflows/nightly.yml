@@ -1,0 +1,27 @@
+name: Nightly Package Update
+# use branch pushes for testing
+on:
+  push:
+    branches:
+      - main
+# on:
+#   schedule:
+#     - cron: '15 1 * * * '
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: install nix
+        run: |
+          mkdir /nix && sh <(curl -L https://nixos.org/nix/install) --no-daemon
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          nix-env -f ./nix -i
+
+      - name: Show paths
+        run: |
+          env && which yarn
