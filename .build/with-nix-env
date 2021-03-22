@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -eu
+
+set -o allexport
+# shellcheck disable=SC1091,SC1090
+source "${HOME}/.nix-profile/etc/profile.d/nix.sh"
+set +o allexport
+
+exec "$@"

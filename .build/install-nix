@@ -1,0 +1,12 @@
+#!/bin/bash
+
+mkdir -m 0755 -p .bin
+if [[ ! -x .bin/nix-user-chroot ]]; then
+    curl -L -o .bin/nix-user-chroot -sSf https://github.com/nix-community/nix-user-chroot/releases/download/1.2.1/nix-user-chroot-bin-1.2.1-x86_64-unknown-linux-musl
+    chmod 755 .bin/nix-user-chroot
+fi
+
+mkdir -m 0755 -p .nix
+if [[ ! -d /nix/store ]]; then
+    .bin/nix-user-chroot .nix bash -c 'curl -L https://nixos.org/nix/install | sh'
+fi

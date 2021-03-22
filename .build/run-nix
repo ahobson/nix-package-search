@@ -1,0 +1,7 @@
+#!/bin/bash
+
+build_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+bin_dir="$( cd "${build_dir}/../.bin" &>/dev/null && pwd )"
+nix_dir="$( cd "${build_dir}/../.nix" &>/dev/null && pwd )"
+
+"${bin_dir}/nix-user-chroot" "${nix_dir}" "${build_dir}/with-nix-env" "$@"
