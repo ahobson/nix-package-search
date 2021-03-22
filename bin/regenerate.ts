@@ -228,7 +228,6 @@ async function generateUpdate(): Promise<void> {
     .split('\n')
     .filter((line) => line.length > 0)
     .reverse()
-  fs.writeFileSync('revs.txt', revs.join('\n') + '\n')
 
   let lastLine = revs[0]
   for (const line of revs) {
