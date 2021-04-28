@@ -1,4 +1,4 @@
-import { useEffect, useState, MouseEvent } from 'react'
+import { useEffect, useState, MouseEvent, MouseEventHandler } from 'react'
 
 import Alert from '@material-ui/lab/Alert'
 import Button from '@material-ui/core/Button'
@@ -31,6 +31,16 @@ enum DownloadStatus {
   Requested,
   Started,
   Finished,
+}
+
+function ButtonControl({ onClick }: { onClick: MouseEventHandler }) {
+  return (
+    <FormControl>
+      <Button variant="contained" color="primary" onClick={onClick}>
+        Download
+      </Button>
+    </FormControl>
+  )
 }
 
 export function Search() {
@@ -122,9 +132,7 @@ export function Search() {
             This local search downloads a ~30MB file that is stored and searched
             on your machine
           </Alert>
-          <FormControl>
-            <Button onClick={initiateDownload}>Download</Button>
-          </FormControl>
+          <ButtonControl onClick={initiateDownload} />
         </CardContent>
       </Card>
     )
@@ -141,14 +149,7 @@ export function Search() {
         <Alert severity="warning">
           Your local package database is out of date.
         </Alert>
-        <FormControl>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={initiateDownload}>
-            Download
-          </Button>
-        </FormControl>
+        <ButtonControl onClick={initiateDownload} />
       </CardContent>
       <CardContent hidden={hideProgress}>
         <Alert severity="info">Downloading and indexing package data</Alert>
