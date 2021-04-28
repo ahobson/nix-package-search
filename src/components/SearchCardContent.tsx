@@ -1,6 +1,9 @@
-import { useState, useEffect, Fragment } from 'react'
+import { useState, useCallback, Fragment } from 'react'
+import { debounce } from 'lodash'
 
 import CardContent from '@material-ui/core/CardContent'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Fade from '@material-ui/core/Fade'
 import FormControl from '@material-ui/core/FormControl'
 import Input from '@material-ui/core/Input'
 import Table from '@material-ui/core/Table'
@@ -18,19 +21,28 @@ const initialResults: IPackage[] = []
 export function SearchCardContent({ hidden }: { hidden: boolean }) {
   const [searchResults, setSearchResults] = useState(initialResults)
   const [searchPrefix, setSearchPrefix] = useState('')
+  const [searching, setSearching] = useState(false)
 
-  useEffect(() => {
-    if (searchPrefix.length > 0) {
-      prefixSearch(searchPrefix).then((r) => {
-        setSearchResults(r)
-      })
-    } else {
-      setSearchResults(initialResults)
-    }
-  }, [searchPrefix])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const callback = useCallback(
+    debounce((_searchPrefix: string) => {
+      if (_searchPrefix.length > 0) {
+        setSearching(true)
+        prefixSearch(_searchPrefix).then((r) => {
+          setSearching(false)
+          setSearchResults(r)
+        })
+      } else {
+        setSearching(false)
+        setSearchResults(initialResults)
+      }
+    }, 250),
+    []
+  )
 
   function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchPrefix(e.target.value)
+    callback(e.target.value)
   }
 
   return (
@@ -43,6 +55,9 @@ export function SearchCardContent({ hidden }: { hidden: boolean }) {
             onChange={handleSearchChange}
           />
         </FormControl>
+        <Fade in={searching} unmountOnExit>
+          <CircularProgress size="2em" />
+        </Fade>
       </CardContent>
       <CardContent hidden={hidden}>
         <Table size="small">
