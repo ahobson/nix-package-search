@@ -25,3 +25,5 @@ yarn-error.log*
 /.log
 /.npmglobal
 /public/nix
+/.envrc.local
+/.nix-hash
