@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "2020",
     "lib": [
       "dom",
       "dom.iterable",
@@ -16,7 +16,7 @@
     "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+    "module": "2020",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
