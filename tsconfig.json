@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "target": "2020",
+    "target": "es2020",
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext",
+      "es2020",
       "webworker"
     ],
     "allowJs": true,
@@ -16,11 +16,10 @@
     "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "2020",
+    "module": "es2020",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react-jsx"
   },
   "include": [
