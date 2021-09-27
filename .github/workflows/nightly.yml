@@ -56,7 +56,7 @@ jobs:
 
       - name: Run Regenerate
         run: |
-          ./.build/run-nix ./node_modules/.bin/ts-node -P tsconfig.bin.json bin/regenerate.ts
+          ./.build/run-nix ./node_modules/.bin/ts-node bin/regenerate.ts
 
       - name: Publish to pages
         run: |

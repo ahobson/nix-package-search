@@ -8,13 +8,13 @@ import App from './App'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
 
-import { createMuiTheme } from '@material-ui/core'
+import { createTheme } from '@material-ui/core/styles'
 import { unstable_createMuiStrictModeTheme } from '@material-ui/core'
-const createTheme =
+const myCreateTheme =
   process.env.NODE_ENV === 'production'
-    ? createMuiTheme
+    ? createTheme
     : unstable_createMuiStrictModeTheme
-const theme = createTheme({})
+const theme = myCreateTheme({})
 
 ReactDOM.render(
   <React.StrictMode>

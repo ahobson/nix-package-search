@@ -45,14 +45,15 @@ const workerUrl = new URL(
 )
 const wasmUrl = new URL('sql.js-httpvfs/dist/sql-wasm.wasm', import.meta.url)
 
+const publicPath = process.env.PUBLIC_URL || ''
 const dbWorker = createDbWorker(
   [
     {
       from: 'inline',
       config: {
         serverMode: 'full', // file is just a plain old full sqlite database
-        requestChunkSize: 4096, // the page size of the  sqlite database (by default 4096)
-        url: '/nix/nixpkgs-unstable/all_packages.sqlite3', // url to the database (relative or full)
+        requestChunkSize: 4096,
+        url: `${publicPath}/nix/nixpkgs-unstable/all_packages.sqlite3`,
       },
     },
   ],

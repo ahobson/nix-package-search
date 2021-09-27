@@ -84,7 +84,7 @@ module.exports = (env, options) => {
       new CopyPlugin(copyPluginPatterns),
       new MiniCssExtractPlugin({ filename: scssConfig.destFileName }),
       new webpack.DefinePlugin({
-        PUBLIC_URL: JSON.stringify(publicPath),
+        'process.env.PUBLIC_URL': JSON.stringify(publicPath),
       }),
       new HtmlWebpackPlugin({
         template: './src/index.html',

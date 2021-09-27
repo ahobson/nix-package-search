@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+if [[ -z "$1" || -z "$2" ]]; then
+    echo "Usage: $0 csv_path sqlite_path"
+    exit 2
+fi
+
+csv_path="$1"
+sqlite_path="$2"
+
 sqlite3 <<_EOF
 CREATE TABLE packages(
   "pname" TEXT NOT NULL,
@@ -8,7 +16,10 @@ CREATE TABLE packages(
   "version" TEXT NOT NULL,
   "sha" TEXT NOT NULL);
 CREATE INDEX packages_name_idx ON packages (name COLLATE NOCASE);
+pragma journal_mode = delete;
+
 .mode csv
-.import public/nix/nixpkgs-unstable/all_packages.csv packages
-.save public/nix/nixpkgs-unstable/all_packages.sqlite3
+.import ${csv_path} packages
+VACUUM;
+.save ${sqlite_path}
 _EOF

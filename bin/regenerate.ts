@@ -144,9 +144,23 @@ async function updateAllPackages(
   return Promise.resolve(dataLines.length)
 }
 
+function updateSqlite(
+  allPackagesCsvFile: string,
+  allPackagesSqliteFile: string
+) {
+  const tmpFilename = `${allPackagesSqliteFile}.new`
+  const csvToSqlite = child.spawnSync('./scripts/csv_to_sqlite.sh', [
+    allPackagesCsvFile,
+    tmpFilename,
+  ])
+  runOrExit('csv_to_sqlite.sh', csvToSqlite)
+  fs.renameSync(tmpFilename, allPackagesSqliteFile)
+}
+
 const NIXPKGS_GIT_REPO = 'https://github.com/NixOS/nixpkgs.git'
 const LAST_SEEN = 'public/nix/nixpkgs-unstable/last_seen.txt'
-const ALL_PACKAGES = 'public/nix/nixpkgs-unstable/all_packages.csv'
+const ALL_PACKAGES_CSV = 'public/nix/nixpkgs-unstable/all_packages.csv'
+const ALL_PACKAGES_SQLITE = 'public/nix/nixpkgs-unstable/all_packages.sqlite3'
 
 async function generateUpdate(): Promise<void> {
   // get the latest info from the gh-pages branch
@@ -169,9 +183,9 @@ async function generateUpdate(): Promise<void> {
     fs.mkdirSync(distDir)
   }
 
-  const allPackagesFile = path.resolve(ALL_PACKAGES)
-  if (!fs.existsSync(allPackagesFile)) {
-    fs.writeFileSync(allPackagesFile, '')
+  const allPackagesCsvFile = path.resolve(ALL_PACKAGES_CSV)
+  if (!fs.existsSync(allPackagesCsvFile)) {
+    fs.writeFileSync(allPackagesCsvFile, '')
   }
 
   const nixpkgsDir = path.resolve(distDir, 'nixpkgs')
@@ -236,15 +250,16 @@ async function generateUpdate(): Promise<void> {
     const commitDateStr = [ymd, hms, tzoff].join(' ')
     const seenDate = Date.parse(commitDateStr)
     if (seenDate > lastSeenDate && seenDate - lastSeenDate > seenLimit) {
-      await updateAllPackages(allPackagesFile, sha)
+      await updateAllPackages(allPackagesCsvFile, sha)
       lastSeenDate = Math.max(lastSeenDate, seenDate)
       fs.writeFileSync(lastSeenFile, commitDateStr + '\n')
     }
   }
   const [sha, ymd, hms, tzoff] = lastLine.split(' ')
   const commitDateStr = [ymd, hms, tzoff].join(' ')
-  await updateAllPackages(allPackagesFile, sha)
+  await updateAllPackages(allPackagesCsvFile, sha)
   fs.writeFileSync(lastSeenFile, commitDateStr + '\n')
+  updateSqlite(allPackagesCsvFile, ALL_PACKAGES_SQLITE)
 }
 
 async function main() {
