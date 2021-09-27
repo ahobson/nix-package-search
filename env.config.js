@@ -1,7 +1,7 @@
 const path = require('path')
 
 const outputConfig = {
-  destPath: './dist',
+  destPath: './build',
 }
 
 // Entry points
