@@ -18,7 +18,7 @@
     "deploy": "gh-pages -d build",
     "start": "webpack serve --mode development --progress --hot --config ./webpack.config.development.js",
     "build": "webpack --mode production --config ./webpack.config.production.js",
-    "test": "jest"
+    "test": "node --experimental-vm-modules node_modules/.bin/jest"
   },
   "eslintConfig": {
     "extends": [
@@ -78,9 +78,6 @@
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/**/*.d.ts"
     ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/setupTests.ts"
-    ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
       "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
@@ -97,21 +94,15 @@
       "<rootDir>"
     ],
     "moduleNameMapper": {
-      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
+      "^(\\.{1,2}/.*)\\.js$": "$1"
     },
-    "moduleFileExtensions": [
-      "web.js",
-      "js",
-      "web.ts",
-      "ts",
-      "web.tsx",
-      "tsx",
-      "json",
-      "web.jsx",
-      "jsx",
-      "node"
-    ],
-    "preset": "ts-jest",
+    "preset": "ts-jest/presets/default-esm",
+    "globals": {
+      "ts-jest": {
+        "useESM": true
+      }
+    },
     "resetMocks": true
   }
 }
