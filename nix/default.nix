@@ -37,5 +37,12 @@ in buildEnv {
       rev = "f62847d5655a6954fc946e5d9c81424171cc281e";
     }) {}).pre-commit
 
+    (import (builtins.fetchGit {
+      # Descriptive name to make the store path easier to identify
+      name = "sqlite-3.35.5";
+      url = "https://github.com/NixOS/nixpkgs/";
+      ref = "refs/heads/nixpkgs-unstable";
+      rev = "572c9219ad1f4ecffa2ff0459f2e0b1355c78dc5";
+    }) {}).sqlite
   ];
 }
