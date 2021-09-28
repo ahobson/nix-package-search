@@ -37,7 +37,8 @@ export function createPackageInfoFromCsvRow(row: string[]): PackageInfo {
   return new PackageInfo(row[0], row[1], row[2], row[3], row[4])
 }
 
-// sadly there's no good way to package workers and wasm directly so you need a way to get these two URLs from your bundler.
+// sadly there's no good way to package workers and wasm directly so
+// you need a way to get these two URLs from your bundler.
 // This is the webpack5 way to create a asset bundle of the worker and wasm:
 const workerUrl = new URL(
   'sql.js-httpvfs/dist/sqlite.worker.js',

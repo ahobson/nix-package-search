@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const WebpackAssetsManifest = require('webpack-assets-manifest')
 const {
   outputConfig,
   copyPluginPatterns,
@@ -47,8 +48,7 @@ module.exports = (env, options) => {
           type: 'javascript/auto',
           loader: 'file-loader',
           options: {
-            publicPath: '../',
-            name: '[path][name].[ext]',
+            name: 'static/[path][name].[ext]',
             context: path.resolve(__dirname, 'src/assets'),
             emitFile: false,
           },
@@ -59,9 +59,8 @@ module.exports = (env, options) => {
           exclude: /images/,
           loader: 'file-loader',
           options: {
-            publicPath: '../',
             context: path.resolve(__dirname, 'src/assets'),
-            name: '[path][name].[ext]',
+            name: 'static/[path][name].[ext]',
             emitFile: false,
           },
         },
@@ -69,11 +68,12 @@ module.exports = (env, options) => {
     },
     resolve: { extensions: ['.tsx', '.ts', '.js'] },
     output: {
-      filename: 'js/[name].bundle.js',
+      filename: 'static/js/[name].bundle.js',
       path: path.resolve(__dirname, outputConfig.destPath),
       publicPath: publicPath,
     },
     optimization: {
+      minimize: true,
       minimizer: [new TerserPlugin(terserPluginConfig)],
       splitChunks: {
         chunks: 'all',
@@ -91,6 +91,9 @@ module.exports = (env, options) => {
         inject: true,
         minify: false,
       }),
+      new WebpackAssetsManifest({
+        publicPath: true,
+      })
     ],
   }
 }

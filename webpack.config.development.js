@@ -72,7 +72,7 @@ module.exports = (env, options) => {
     },
     resolve: { extensions: ['.tsx', '.ts', '.js'] },
     output: {
-      filename: 'js/[name].bundle.js',
+      filename: 'static/js/[name].bundle.js',
       path: path.resolve(__dirname, outputConfig.destPath),
       publicPath: publicPath,
     },

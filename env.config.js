@@ -12,9 +12,10 @@ const entryConfig = ['./src/index.tsx', './src/assets/stylesheets/app.scss']
 // https://webpack.js.org/plugins/copy-webpack-plugin/
 const copyPluginPatterns = {
   patterns: [
-    { from: './src/assets/images', to: 'images' },
-    { from: './src/assets/fonts', to: 'fonts' },
-    { from: './src/assets/vendor', to: 'js' },
+    { from: '**/*', context: './public' },
+    { from: './src/assets/images', to: 'static/images' },
+    { from: './src/assets/fonts', to: 'static/fonts' },
+    { from: './src/assets/vendor', to: 'static/js' },
   ],
 }
 
@@ -33,7 +34,7 @@ const devServer = {
 
 // SCSS compile
 const scssConfig = {
-  destFileName: 'css/app.min.css',
+  destFileName: 'static/css/app.min.css',
 }
 
 // Production terser config options
