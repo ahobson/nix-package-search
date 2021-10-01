@@ -14,8 +14,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Cache install Nix packages
-        uses: rikhuijzer/cache-install@v1
+      - name:  Nix packages
+        uses: rikhuijzer/cache-install@v1.0.8
         with:
           key: nix-${{ hashFiles('nix/default.nix') }}
           nix_file: 'nix/default.nix'
