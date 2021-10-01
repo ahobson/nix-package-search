@@ -145,11 +145,12 @@ async function updateAllPackages(
 }
 
 function updateSqlite(
+  csvToSqliteScript: string,
   allPackagesCsvFile: string,
   allPackagesSqliteFile: string
 ) {
   const tmpFilename = `${allPackagesSqliteFile}.new`
-  const csvToSqlite = child.spawnSync('./scripts/csv_to_sqlite.sh', [
+  const csvToSqlite = child.spawnSync(csvToSqliteScript, [
     allPackagesCsvFile,
     tmpFilename,
   ])
@@ -187,6 +188,10 @@ async function generateUpdate(): Promise<void> {
   if (!fs.existsSync(allPackagesCsvFile)) {
     fs.writeFileSync(allPackagesCsvFile, '')
   }
+
+  const csvToSqliteScript = path.resolve('scripts/csv_to_sqlite.sh')
+
+  const allPackagesSqliteFile = path.resolve(ALL_PACKAGES_SQLITE)
 
   const nixpkgsDir = path.resolve(distDir, 'nixpkgs')
   if (fs.existsSync(nixpkgsDir)) {
@@ -259,7 +264,7 @@ async function generateUpdate(): Promise<void> {
   const commitDateStr = [ymd, hms, tzoff].join(' ')
   await updateAllPackages(allPackagesCsvFile, sha)
   fs.writeFileSync(lastSeenFile, commitDateStr + '\n')
-  updateSqlite(allPackagesCsvFile, ALL_PACKAGES_SQLITE)
+  updateSqlite(csvToSqliteScript, allPackagesCsvFile, allPackagesSqliteFile)
 }
 
 async function main() {

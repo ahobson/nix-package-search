@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -x
+
 if [[ -z "$1" || -z "$2" ]]; then
     echo "Usage: $0 csv_path sqlite_path"
     exit 2
