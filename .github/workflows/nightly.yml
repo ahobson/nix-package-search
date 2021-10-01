@@ -19,6 +19,7 @@ jobs:
         with:
           key: nix-${{ hashFiles('nix/default.nix') }}
           nix_file: 'nix/default.nix'
+          nix_version: nixpkgs-unstable
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
