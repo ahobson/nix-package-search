@@ -5,8 +5,8 @@ import * as path from 'path'
 function runOrExit(msg: string, spawned: child.SpawnSyncReturns<String>) {
   if (spawned.error || spawned.status != 0) {
     console.log('msg: ', msg)
-    console.log('stderr: ', spawned.stderr.toString())
-    console.log('stdout: ', spawned.stdout.toString())
+    console.log('stderr: ', (spawned.stderr || '').toString())
+    console.log('stdout: ', (spawned.stdout || '').toString())
     process.exit(1)
   }
 }
