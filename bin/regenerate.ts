@@ -180,10 +180,6 @@ async function generateUpdate(): Promise<void> {
   runOrExit('git restore', restore)
   const lastSeenFile = path.resolve(LAST_SEEN)
   const distDir = path.resolve('/tmp')
-  if (!fs.existsSync(distDir)) {
-    fs.mkdirSync(distDir)
-  }
-
   const allPackagesCsvFile = path.resolve(ALL_PACKAGES_CSV)
   if (!fs.existsSync(allPackagesCsvFile)) {
     fs.writeFileSync(allPackagesCsvFile, '')
@@ -193,7 +189,7 @@ async function generateUpdate(): Promise<void> {
 
   const allPackagesSqliteFile = path.resolve(ALL_PACKAGES_SQLITE)
 
-  const nixpkgsDir = path.resolve(distDir, 'nixpkgs')
+  const nixpkgsDir = process.env.NIXPKGS_DIR || path.resolve(distDir, 'nixpkgs')
   if (fs.existsSync(nixpkgsDir)) {
     const fetch = child.spawnSync('git', ['fetch', 'origin'], {
       cwd: nixpkgsDir,
@@ -201,6 +197,10 @@ async function generateUpdate(): Promise<void> {
     })
     runOrExit('git fetch', fetch)
   } else {
+    if (!fs.existsSync(distDir)) {
+      fs.mkdirSync(distDir)
+    }
+
     const clone = child.spawnSync('git', ['clone', NIXPKGS_GIT_REPO], {
       cwd: distDir,
       encoding: 'utf8',
