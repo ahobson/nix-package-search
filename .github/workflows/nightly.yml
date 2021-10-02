@@ -38,19 +38,19 @@ jobs:
           yarn --prefer-offline
 
       - uses: actions/cache@v2
-        id: nixpkgs-cache
+        id: nixpkgs-unstable-cache
         with:
           path: nixpkgs-cache
           key: ${{ runner.os }}-nixpkgs-${{ hashFiles('nixpkgs-cache/.git/index') }}
           restore-keys: |
-            ${{ runner.os }}-nixpkgs-cache-
+            ${{ runner.os }}-nixpkgs-unstable-cache-
 
       - name: Checkout nixpkgs
         run: >-
           mkdir -p nixpkgs-cache &&
           cd nixpkgs-cache &&
           test -d nixpkgs ||
-          git clone https://github.com/NixOS/nixpkgs.git
+          git clone --depth 1 https://github.com/NixOS/nixpkgs.git -b nixpkgs-unstable
 
       - name: Run Regenerate
         run: |

@@ -191,31 +191,26 @@ async function generateUpdate(): Promise<void> {
 
   const nixpkgsDir = process.env.NIXPKGS_DIR || path.resolve(distDir, 'nixpkgs')
   if (fs.existsSync(nixpkgsDir)) {
-    const fetch = child.spawnSync('git', ['fetch', 'origin'], {
+    const pull = child.spawnSync('git', ['pull'], {
       cwd: nixpkgsDir,
       encoding: 'utf8',
     })
-    runOrExit('git fetch', fetch)
+    runOrExit('git pull', pull)
   } else {
     if (!fs.existsSync(distDir)) {
       fs.mkdirSync(distDir)
     }
 
-    const clone = child.spawnSync('git', ['clone', NIXPKGS_GIT_REPO], {
-      cwd: distDir,
-      encoding: 'utf8',
-    })
+    const clone = child.spawnSync(
+      'git',
+      ['clone', '--depth', '1', NIXPKGS_GIT_REPO, '-b', 'nixpkgs-unstable'],
+      {
+        cwd: distDir,
+        encoding: 'utf8',
+      }
+    )
     runOrExit('git clone', clone)
   }
-  const checkout = child.spawnSync(
-    'git',
-    ['checkout', 'origin/nixpkgs-unstable'],
-    {
-      cwd: nixpkgsDir,
-      encoding: 'utf8',
-    }
-  )
-  runOrExit('git checkout', checkout)
 
   process.chdir(nixpkgsDir)
 
