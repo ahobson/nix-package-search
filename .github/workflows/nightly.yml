@@ -62,12 +62,12 @@ jobs:
           NIXPKGS_DIR: nixpkgs-cache/nixpkgs
 
       - name: Test build
-        if: ${{ github.ref != 'refs/head/main' }}
+        if: ${{ github.ref != 'refs/heads/main' }}
         run: |
           yarn build
 
       - name: Publish to pages
-        if: ${{ github.ref == 'refs/head/main' }}
+        if: ${{ github.ref == 'refs/heads/main' }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
