@@ -1,10 +1,5 @@
-# to install
-# nix-env -p /nix/var/nix/profiles/zoom-webhook -f nix -i
-#
-# use
-#
-# https://lazamar.co.uk/nix-versions/
-# to find rev for specific package version
+# Use https://ahobson.github.io/nix-package-search/#/search to find
+# pinned versions
 
 let
   pkgs = import <nixpkgs> {};

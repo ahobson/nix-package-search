@@ -15,11 +15,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name:  Nix packages
-        uses: ahobson/cache-install@adh-debug
+        uses: rikhuijzer/cache-install@v1.0.8
         with:
           key: nix-${{ hashFiles('nix/default.nix') }}
           nix_file: 'nix/default.nix'
-          nix_version: nixpkgs-unstable
+          nix_version: https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
