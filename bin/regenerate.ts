@@ -195,6 +195,7 @@ async function generateUpdate(): Promise<void> {
       cwd: nixpkgsDir,
       encoding: 'utf8',
     })
+    console.log('Updating existing nixpkgs')
     runOrExit('git pull', pull)
   } else {
     const distDir = path.resolve(path.dirname(nixpkgsDir))
@@ -210,6 +211,7 @@ async function generateUpdate(): Promise<void> {
         encoding: 'utf8',
       }
     )
+    console.log('cloning nixpkgs')
     runOrExit('git clone', clone)
   }
 
@@ -219,6 +221,7 @@ async function generateUpdate(): Promise<void> {
     ? fs.readFileSync(lastSeenFile, 'utf8').trim()
     : '2019-03-01'
 
+  console.log('Updating nixpkgs since ', lastSeen)
   const revlist = child.spawnSync(
     'git',
     [
@@ -260,6 +263,7 @@ async function generateUpdate(): Promise<void> {
   const commitDateStr = [ymd, hms, tzoff].join(' ')
   await updateAllPackages(allPackagesCsvFile, sha)
   fs.writeFileSync(lastSeenFile, commitDateStr + '\n')
+  console.log("Updating last seen to ", commitDateStr)
   updateSqlite(csvToSqliteScript, allPackagesCsvFile, allPackagesSqliteFile)
 }
 
