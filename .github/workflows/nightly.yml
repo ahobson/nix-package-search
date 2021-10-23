@@ -40,12 +40,13 @@ jobs:
         run: |
           yarn --prefer-offline
 
+      # see https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
       - name: Checkout nixpkgs
         run: >-
           mkdir -p nixpkgs-cache &&
           cd nixpkgs-cache &&
           test -d nixpkgs ||
-          git clone --depth 1 https://github.com/NixOS/nixpkgs.git -b nixpkgs-unstable
+          git clone --filter=tree:0 --single-branch --branch=nixpkgs-unstable https://github.com/NixOS/nixpkgs.git
 
       - name: Run Regenerate
         run: |
