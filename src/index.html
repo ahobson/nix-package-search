@@ -45,7 +45,27 @@
     <!-- End Single Page Apps for GitHub Pages -->
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>
+      <pre>
+        Every night the list of packages is exported and then merged
+        into a single CSV file that has every package version.
+
+        The CSV has a column for the pname, the nix package name, the
+        name, the version and the sha of the commit it was added.
+
+        For example, to find which sha go-15.10 appeared, you can run
+
+        curl -sSfL https://ahobson.github.io/nix-package-search/nix/nixpkgs-unstable/all_packages.csv | grep 'go-1.15.10'
+
+        The result would look like
+
+        go,go_1_15,go-1.15.10,1.15.10,674c39c08fb94d315cb9bc699da33fd1be4b4e2e
+      </pre>
+      <p>
+        If you enable javascript, you will be able to search packages
+        via your browser.
+      </p>
+    </noscript>
     <div id="root"></div>
     <!--
       This HTML file is a template.
