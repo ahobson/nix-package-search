@@ -248,6 +248,10 @@ async function generateUpdate(): Promise<void> {
     .reverse()
 
   let lastLine = revs[0]
+  if (!lastLine) {
+    console.log('No new commits to process')
+    return
+  }
   for (const line of revs) {
     lastLine = line
     const [sha, ymd, hms, tzoff] = line.split(' ')
