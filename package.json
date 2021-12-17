@@ -54,7 +54,7 @@
     "jest": "^27.3.1",
     "mini-css-extract-plugin": "^2.4.4",
     "postcss": "^8.3.11",
-    "postcss-loader": "^6.2.0",
+    "postcss-loader": "^6.2.1",
     "postcss-preset-env": "^7.0.1",
     "prettier": "^2.5.0",
     "sass": "^1.45.0",
