@@ -248,10 +248,6 @@ async function generateUpdate(): Promise<void> {
     .reverse()
 
   let lastLine = revs[0]
-  if (!lastLine) {
-    console.log('No new commits to process')
-    return
-  }
   for (const line of revs) {
     lastLine = line
     const [sha, ymd, hms, tzoff] = line.split(' ')
@@ -263,11 +259,21 @@ async function generateUpdate(): Promise<void> {
       fs.writeFileSync(lastSeenFile, commitDateStr + '\n')
     }
   }
+
+  // always update with the most recent commit
+  // this way if a bugfix is applied, it will apply to all packages
+  const lastCommit = child.spawnSync('git', ['log', '--format=%H %ci', '-1'], {
+    encoding: 'utf8',
+    maxBuffer: 40960000,
+  })
+  runOrExit('git log -1', lastCommit)
+  lastLine = lastCommit.output.join('').trim()
+
   const [sha, ymd, hms, tzoff] = lastLine.split(' ')
   const commitDateStr = [ymd, hms, tzoff].join(' ')
   await updateAllPackages(allPackagesCsvFile, sha)
   fs.writeFileSync(lastSeenFile, commitDateStr + '\n')
-  console.log("Updating last seen to ", commitDateStr)
+  console.log('Updating last seen to ', commitDateStr)
   updateSqlite(csvToSqliteScript, allPackagesCsvFile, allPackagesSqliteFile)
 }
 
