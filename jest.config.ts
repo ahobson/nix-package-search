@@ -22,5 +22,6 @@ const config: Config.InitialOptions = {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
   transform: {},
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
 }
 export default config

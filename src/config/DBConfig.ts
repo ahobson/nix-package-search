@@ -1,4 +1,4 @@
-import { createDbWorker } from 'sql.js-httpvfs'
+import { getDbWorker } from './worker'
 
 export interface IPackage {
   id: string
@@ -36,31 +36,6 @@ export class PackageInfo {
 export function createPackageInfoFromCsvRow(row: string[]): PackageInfo {
   return new PackageInfo(row[0], row[1], row[2], row[3], row[4])
 }
-
-// sadly there's no good way to package workers and wasm directly so
-// you need a way to get these two URLs from your bundler.
-// This is the webpack5 way to create a asset bundle of the worker and wasm:
-const workerUrl = new URL(
-  'sql.js-httpvfs/dist/sqlite.worker.js',
-  import.meta.url
-)
-const wasmUrl = new URL('sql.js-httpvfs/dist/sql-wasm.wasm', import.meta.url)
-
-const publicPath = process.env.PUBLIC_URL || ''
-const dbWorker = createDbWorker(
-  [
-    {
-      from: 'inline',
-      config: {
-        serverMode: 'full', // file is just a plain old full sqlite database
-        requestChunkSize: 4096,
-        url: `${publicPath}/nix/nixpkgs-unstable/all_packages.sqlite3`,
-      },
-    },
-  ],
-  workerUrl.toString(),
-  wasmUrl.toString()
-)
 
 function isIPackage(item: IPackage | undefined): item is IPackage {
   return !!item
@@ -105,7 +80,7 @@ function queryToIPackage(u: unknown): IPackage | undefined {
 }
 
 export async function prefixSearch(prefix: string): Promise<IPackage[]> {
-  return dbWorker.then(async (worker) => {
+  return getDbWorker().then(async (worker) => {
     return await worker.db
       .query(`SELECT * FROM packages WHERE name LIKE ? LIMIT 200`, [
         prefix + '%',
