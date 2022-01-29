@@ -57,7 +57,7 @@ jobs:
       - name: Test build
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
-          yarn build
+          yarn test && yarn build
 
       - name: Publish to pages
         if: ${{ github.ref == 'refs/heads/main' }}
