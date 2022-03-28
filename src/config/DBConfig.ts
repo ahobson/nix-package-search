@@ -82,9 +82,10 @@ function queryToIPackage(u: unknown): IPackage | undefined {
 export async function prefixSearch(prefix: string): Promise<IPackage[]> {
   return getDbWorker().then(async (worker) => {
     return await worker.db
-      .query(`SELECT * FROM packages WHERE name LIKE ? LIMIT 200`, [
-        prefix + '%',
-      ])
+      .query(
+        `SELECT * FROM packages WHERE name LIKE ? OR nix_package_name LIKE ? LIMIT 200`,
+        [prefix + '%', prefix + '%']
+      )
       .then((value) => {
         return value.map((v) => queryToIPackage(v)).filter(isIPackage)
       })
