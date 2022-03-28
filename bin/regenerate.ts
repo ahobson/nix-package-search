@@ -108,15 +108,18 @@ async function updateAllPackages(
     } else {
       currentAllPackages[nixInfo.pname] = currentPkgVersions
     }
+
+    // always update to the latest sha that contains the version
+    // that means the sha won't be stable as other packages are
+    // updated, but it also means that when global fixes are made, all
+    // packages will be updated
     const subkey = [nixInfo.name, nixPkgName, nixInfo.version].join('|')
-    if (!(subkey in currentPkgVersions)) {
-      currentPkgVersions[subkey] = {
-        nixPkgName: nixPkgName,
-        name: nixInfo.name,
-        pname: nixInfo.pname,
-        version: nixInfo.version,
-        sha: sha,
-      }
+    currentPkgVersions[subkey] = {
+      nixPkgName: nixPkgName,
+      name: nixInfo.name,
+      pname: nixInfo.pname,
+      version: nixInfo.version,
+      sha: sha,
     }
   })
   const dataLines: string[] = []
