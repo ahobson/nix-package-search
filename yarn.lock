@@ -5603,10 +5603,10 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-sql.js-httpvfs@^0.8.11:
-  version "0.8.11"
-  resolved "https://registry.yarnpkg.com/sql.js-httpvfs/-/sql.js-httpvfs-0.8.11.tgz#f2359e3c37e15e1d5c0de28aa91301040808fb6a"
-  integrity sha512-OBgj77Z3yAdxJ3HlC5BPVqIaWLqXn+q8KYAi+shR3iHwSglXE2NzsOIZsCs9fQfrtU6Qu5fqAMWAX4NaxeADew==
+sql.js-httpvfs@^0.8.12:
+  version "0.8.12"
+  resolved "https://registry.yarnpkg.com/sql.js-httpvfs/-/sql.js-httpvfs-0.8.12.tgz#75c85e1c274782e7163ac154b2e02220d91906be"
+  integrity sha512-lcEBc2q0psFRfdCx8Di22oUIkkv5MUIaVO/fGCj/Jjx6YQDKVylQEcjd7NSSbmINHTRwVkm/vWP8uuevT7Rkkw==
   dependencies:
     comlink "^4.3.0"
 
