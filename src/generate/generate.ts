@@ -185,6 +185,10 @@ export async function generateUpdate(): Promise<void> {
   const tmpDir = path.resolve('/tmp')
   const allPackagesCsvFile = path.resolve(ALL_PACKAGES_CSV)
   if (!fs.existsSync(allPackagesCsvFile)) {
+    const csvDir = path.resolve(path.dirname(allPackagesCsvFile))
+    if (!fs.existsSync(csvDir)) {
+      fs.mkdirSync(csvDir, { recursive: true })
+    }
     fs.writeFileSync(allPackagesCsvFile, '')
   }
 
