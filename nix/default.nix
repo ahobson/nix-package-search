@@ -8,20 +8,22 @@ in buildEnv {
   name = "nix-package-search-packages";
   paths = [
 
-    (import (builtins.fetchGit {
-      # Descriptive name to make the store path easier to identify
-      name = "nodejs-14.17.1";
-      url = "https://github.com/NixOS/nixpkgs/";
-      ref = "refs/heads/nixpkgs-unstable";
-      rev = "75916fb375eb571dceebef84263a6cb942372769";
-    }) {}).nodejs-14_x
+    (import
+      (builtins.fetchGit {
+        # Descriptive name to make the store path easier to identify
+        name = "nodejs-18.13.0";
+        url = "https://github.com/NixOS/nixpkgs/";
+        ref = "refs/heads/nixpkgs-unstable";
+        rev = "2d38b664b4400335086a713a0036aafaa002c003";
+      })
+      { }).nodejs-18_x
 
     (import (builtins.fetchGit {
       # Descriptive name to make the store path easier to identify
-      name = "yarn-1.22.11";
+      name = "yarn-1.22.19";
       url = "https://github.com/NixOS/nixpkgs/";
       ref = "refs/heads/nixpkgs-unstable";
-      rev = "319556224cdf20bef78a7395de9fcc5ff06d2d79";
+      rev = "d218e35480c7ea6cbb50ea68e6b1d88f5d2dc451";
     }) {}).yarn
 
     (import (builtins.fetchGit {
