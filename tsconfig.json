@@ -1,12 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2020",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "es2020",
-      "webworker"
-    ],
+    "lib": ["dom", "dom.iterable", "es2020", "webworker"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -22,9 +17,7 @@
     "isolatedModules": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src"
-  ],
+  "include": ["src"],
   "ts-node": {
     "compilerOptions": {
       "module": "commonjs"
