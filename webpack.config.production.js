@@ -14,7 +14,7 @@ const {
   terserPluginConfig,
 } = require('./env.config')
 
-const publicPath = '/nix-package-search/'
+const publicPath = '/nix-package-search'
 
 module.exports = (env, options) => {
   return {
@@ -93,7 +93,7 @@ module.exports = (env, options) => {
       }),
       new WebpackAssetsManifest({
         publicPath: true,
-      })
+      }),
     ],
   }
 }
