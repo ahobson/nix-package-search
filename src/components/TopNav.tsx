@@ -1,6 +1,6 @@
-import AppBar from '@material-ui/core/AppBar'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
+import AppBar from '@mui/material/AppBar'
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
 
 import { useLocation, Link } from 'react-router-dom'
 
@@ -9,7 +9,11 @@ export function TopNav() {
 
   return (
     <AppBar position="static">
-      <Tabs value={location.pathname}>
+      <Tabs
+        value={location.pathname}
+        indicatorColor="secondary"
+        textColor="inherit"
+      >
         <Tab label="Home" value="/" component={Link} to="/" />
         <Tab label="Search" value="/search" component={Link} to="/search" />
       </Tabs>

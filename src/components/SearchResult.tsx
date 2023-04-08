@@ -1,12 +1,12 @@
 import { useState, Fragment } from 'react'
 
-import Collapse from '@material-ui/core/Collapse'
-import IconButton from '@material-ui/core/IconButton'
-import TableCell from '@material-ui/core/TableCell'
-import TableRow from '@material-ui/core/TableRow'
+import Collapse from '@mui/material/Collapse'
+import IconButton from '@mui/material/IconButton'
+import TableCell from '@mui/material/TableCell'
+import TableRow from '@mui/material/TableRow'
 
-import VisibilityIcon from '@material-ui/icons/Visibility'
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
 import { IPackage } from './../config/DBConfig'
 import { NixExpression } from './NixExpression'
@@ -20,7 +20,8 @@ export function SearchResult({ row }: { row: IPackage }) {
           <IconButton
             aria-label="expand-row"
             size="small"
-            onClick={() => setOpen(!open)}>
+            onClick={() => setOpen(!open)}
+          >
             {open ? <VisibilityOffIcon /> : <VisibilityIcon />}
           </IconButton>
         </TableCell>

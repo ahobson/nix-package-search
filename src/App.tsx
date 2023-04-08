@@ -1,6 +1,6 @@
 import './App.scss'
-import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
 
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 
