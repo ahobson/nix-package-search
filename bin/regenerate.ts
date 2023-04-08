@@ -5,6 +5,7 @@ async function main() {
     await generateUpdate()
   } catch (error) {
     console.log(error)
+    process.exit(1)
   }
 }
 
