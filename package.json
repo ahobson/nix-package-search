@@ -15,7 +15,7 @@
   },
   "scripts": {
     "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -f -d build",
     "start": "webpack serve --mode development --progress --hot --config ./webpack.config.development.js",
     "build": "webpack --mode production --config ./webpack.config.production.js",
     "test": "jest"
