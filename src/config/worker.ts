@@ -21,7 +21,7 @@ const dbWorker = createDbWorker(
       config: {
         serverMode: 'full', // file is just a plain old full sqlite database
         requestChunkSize: 4096,
-        url: `${publicPath}/nix/nixpkgs-unstable/all_packages.sqlite3`,
+        url: `${publicPath}nix/nixpkgs-unstable/all_packages.sqlite3`,
       },
     },
   ],
