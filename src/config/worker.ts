@@ -13,7 +13,7 @@ const workerUrl = new URL(
 
 const wasmUrl = new URL('sql.js-httpvfs/dist/sql-wasm.wasm', import.meta.url)
 
-const publicPath = process.env.PUBLIC_URL || ''
+const publicPath = import.meta.env.BASE_URL || ''
 const dbWorker = createDbWorker(
   [
     {
