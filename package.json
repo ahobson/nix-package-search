@@ -18,7 +18,7 @@
   },
   "scripts": {
     "predeploy": "yarn run build",
-    "deploy": "gh-pages -f -d build",
+    "deploy": "gh-pages -f -d dist",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
