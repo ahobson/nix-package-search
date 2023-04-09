@@ -2,6 +2,8 @@ import * as child from 'child_process'
 import * as fs from 'fs'
 import * as path from 'path'
 
+const MAX_PACKAGE_VERSION_COUNT = 100
+
 function runOrExit(msg: string, spawned: child.SpawnSyncReturns<string>) {
   if (spawned.error || spawned.status != 0) {
     console.log('msg: ', msg)
@@ -129,6 +131,7 @@ async function updateAllPackages(
       const pkgVersions = currentAllPackages[pname]
       Object.keys(pkgVersions)
         .sort()
+        .slice(-1 * MAX_PACKAGE_VERSION_COUNT)
         .forEach((subkey) => {
           const pkgVersionInfo = pkgVersions[subkey]
           const line = [
