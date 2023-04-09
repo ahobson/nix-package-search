@@ -1,7 +1,9 @@
 import { render, screen } from '@testing-library/react'
-jest.mock('./config/worker.ts', () => {
+import { expect, test, vi } from 'vitest'
+
+vi.mock('./config/worker.ts', () => {
   return {
-    getDbWorker: jest.fn(),
+    getDbWorker: vi.fn(),
   }
 })
 
