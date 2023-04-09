@@ -10,10 +10,9 @@ import { ThemeProvider } from '@mui/material/styles'
 
 import { createTheme } from '@mui/material/styles'
 import { unstable_createMuiStrictModeTheme } from '@mui/material'
-const myCreateTheme =
-  process.env.NODE_ENV === 'production'
-    ? createTheme
-    : unstable_createMuiStrictModeTheme
+const myCreateTheme = import.meta.env.PROD
+  ? createTheme
+  : unstable_createMuiStrictModeTheme
 const theme = myCreateTheme({})
 
 createRoot(document.getElementById('root') as HTMLElement).render(
