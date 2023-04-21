@@ -8,7 +8,7 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.16",
     "@mui/lab": "^5.0.0-alpha.125",
-    "@mui/material": "^5.11.16",
+    "@mui/material": "^5.12.0",
     "@mui/styles": "^5.11.16",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
