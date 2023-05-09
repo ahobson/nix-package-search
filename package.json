@@ -51,7 +51,7 @@
     "@types/testing-library__jest-dom": "^5.14.5",
     "@vitejs/plugin-react": "^4.0.0",
     "gh-pages": "^5.0.0",
-    "jsdom": "^21.1.1",
+    "jsdom": "^22.0.0",
     "prettier": "^2.8.8",
     "sass": "^1.62.1",
     "ts-node": "^10.9.1",
