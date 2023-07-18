@@ -14,6 +14,7 @@ const workerUrl = new URL(
 const wasmUrl = new URL('sql.js-httpvfs/dist/sql-wasm.wasm', import.meta.url)
 
 const publicPath = import.meta.env.BASE_URL || ''
+const gitSha = import.meta.env.VITE_GITHUB_SHA || 'local'
 const dbWorker = createDbWorker(
   [
     {
@@ -22,6 +23,7 @@ const dbWorker = createDbWorker(
         serverMode: 'full', // file is just a plain old full sqlite database
         requestChunkSize: 4096,
         url: `${publicPath}nix/nixpkgs-unstable/all_packages.sqlite3`,
+        cacheBust: gitSha,
       },
     },
   ],
