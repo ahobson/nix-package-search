@@ -18,7 +18,9 @@ CREATE TABLE packages(
   "version" TEXT NOT NULL,
   "sha" TEXT NOT NULL);
 CREATE INDEX packages_name_idx ON packages (name COLLATE NOCASE);
+CREATE INDEX packages_nix_package_name_idx ON packages (nix_package_name COLLATE NOCASE);
 pragma journal_mode = delete;
+pragma page_size = 4096;
 
 .mode csv
 .import ${csv_path} packages
