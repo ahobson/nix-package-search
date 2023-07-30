@@ -1,0 +1,23 @@
+{
+  "lockfile_version": "1",
+  "packages": {
+    "nodejs@18.13.0": {
+      "last_modified": "2023-02-02T03:42:27Z",
+      "resolved": "github:NixOS/nixpkgs/006c3bd4dd2f5d1d2094047f307cbf9e2b73d9c5#nodejs",
+      "source": "devbox-search",
+      "version": "18.13.0"
+    },
+    "pre-commit@2.13.0": {
+      "last_modified": "2021-07-20T06:56:03Z",
+      "resolved": "github:NixOS/nixpkgs/1441fa74d213d7cc120d9d7d49e540c1fc59bc58#pre-commit",
+      "source": "devbox-search",
+      "version": "2.13.0"
+    },
+    "sqlite@3.35.5": {
+      "last_modified": "2021-09-01T12:51:06Z",
+      "resolved": "github:NixOS/nixpkgs/6cc260cfd60f094500b79e279069b499806bf6d8#sqlite",
+      "source": "devbox-search",
+      "version": "3.35.5"
+    }
+  }
+}
