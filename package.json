@@ -13,7 +13,7 @@
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.14.2",
+    "react-router-dom": "^6.15.0",
     "sql.js-httpvfs": "^0.8.12"
   },
   "scripts": {
