@@ -17,12 +17,11 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
 
-      - name:  Nix packages
-        uses: ahobson/cache-install@adh-nix-version-v3
+
+      - name: Install devbox
+        uses: jetpack-io/devbox-install-action@v0.5.0
         with:
-          key: nix-${{ hashFiles('nix/default.nix') }}
-          nix_file: 'nix/default.nix'
-          nix_version: https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          enable-cache: true
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
