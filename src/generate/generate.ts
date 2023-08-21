@@ -89,7 +89,9 @@ async function updateAllPackages(
     encoding: 'utf8',
   })
   if (allPkgCmd.error || allPkgCmd.status != 0) {
-    console.log(`WARN: nix-env problem, skipping: ${allPkgCmd.stderr}`)
+    console.log(
+      `WARN: nix-env problem, skipping: '${allPkgCmd.error}' ${allPkgCmd.stderr}`
+    )
     return Promise.resolve(0)
   }
   const allPackages = JSON.parse(allPkgCmd.stdout.toString())
