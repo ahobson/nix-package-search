@@ -77,6 +77,31 @@ async function readAllPackagesCsv(
   return Promise.resolve(allPackages)
 }
 
+// taken from
+// https://medium.com/geekculture/sorting-an-array-of-semantic-versions-in-typescript-55d65d411df2
+//
+// seems to work ok
+function compareSemanticVersions(a: PackageVersionInfo, b: PackageVersionInfo) {
+  // 1. Split the strings into their parts.
+  const a1 = a.version.split('.')
+  const b1 = b.version.split('.')
+  // 2. Contingency in case there's a 4th or 5th version
+  const len = Math.min(a1.length, b1.length)
+  // 3. Look through each version number and compare.
+  for (let i = 0; i < len; i++) {
+    const a2 = +a1[i] || 0
+    const b2 = +b1[i] || 0
+
+    if (a2 !== b2) {
+      return a2 > b2 ? 1 : -1
+    }
+  }
+
+  // 4. We hit this if the all checked versions so far are equal
+  //
+  return b1.length - a1.length
+}
+
 async function updateAllPackages(
   allPackagesCsvFile: string,
   sha: string
@@ -129,19 +154,38 @@ async function updateAllPackages(
     .sort()
     .forEach((pname) => {
       const pkgVersions = currentAllPackages[pname]
-      Object.keys(pkgVersions)
-        .sort()
-        .forEach((subkey) => {
-          const pkgVersionInfo = pkgVersions[subkey]
-          const line = [
-            pkgVersionInfo.pname,
-            pkgVersionInfo.nixPkgName,
-            pkgVersionInfo.name,
-            pkgVersionInfo.version,
-            pkgVersionInfo.sha,
-          ].join(',')
-          dataLines.push(line)
-        })
+      const sortedPkgVersionInfos = Object.values(pkgVersions).sort(
+        compareSemanticVersions
+      )
+      // need to filter packages with more than 200 versions to reduce
+      // bloat
+      let pkgVersionInfos = sortedPkgVersionInfos
+      if (pkgVersionInfos.length > 200) {
+        pkgVersionInfos = []
+        const lastSampleIndex = sortedPkgVersionInfos.length - 100
+        const sampleIncrement = Math.floor(lastSampleIndex / 20)
+        for (let i = 0; i < lastSampleIndex; i += sampleIncrement) {
+          console.log(`DREW DEBUG sskpush ${i}`)
+          pkgVersionInfos.push(sortedPkgVersionInfos[i])
+        }
+        for (let i = lastSampleIndex; i < sortedPkgVersionInfos.length; i++) {
+          pkgVersionInfos.push(sortedPkgVersionInfos[i])
+        }
+        console.log(
+          `DREW DEBUG ${pname} ${pkgVersionInfos.length} ${pkgVersionInfos[0]}`
+        )
+        console.log(`DREW DEBUG 1 ${pkgVersionInfos[0]}`)
+      }
+      pkgVersionInfos.forEach((pkgVersionInfo) => {
+        const line = [
+          pkgVersionInfo.pname,
+          pkgVersionInfo.nixPkgName,
+          pkgVersionInfo.name,
+          pkgVersionInfo.version,
+          pkgVersionInfo.sha,
+        ].join(',')
+        dataLines.push(line)
+      })
     })
   const tmpFilename = `${allPackagesCsvFile}.new`
   fs.writeFileSync(tmpFilename, dataLines.join('\n') + '\n')
