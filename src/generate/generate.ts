@@ -158,7 +158,8 @@ async function updateAllPackages(
         compareSemanticVersions
       )
       // need to filter packages with many versions to reduce bloat
-      const maxVersions = 150
+      // homeassistant packages are almost 20% of all package versions
+      const maxVersions = pname.startsWith('homeassistant') ? 50 : 150
       let pkgVersionInfos = sortedPkgVersionInfos
       if (pkgVersionInfos.length > maxVersions) {
         pkgVersionInfos = []
