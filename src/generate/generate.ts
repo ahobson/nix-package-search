@@ -158,12 +158,16 @@ async function updateAllPackages(
         compareSemanticVersions
       )
       // need to filter packages with many versions to reduce bloat
+      const maxVersions = 150
       let pkgVersionInfos = sortedPkgVersionInfos
-      if (pkgVersionInfos.length > 150) {
+      if (pkgVersionInfos.length > maxVersions) {
         pkgVersionInfos = []
-        const lastSampleIndex = sortedPkgVersionInfos.length - 100
-        const sampleIncrement = Math.floor(lastSampleIndex / 20)
-        for (let i = 0; i < lastSampleIndex; i += sampleIncrement) {
+        const recentVersionCount = Math.ceil(maxVersions / 2)
+        const lastSampleIndex =
+          sortedPkgVersionInfos.length - recentVersionCount
+        const sampleCount = maxVersions - recentVersionCount
+        const sampleIncrement = Math.floor(lastSampleIndex / sampleCount)
+        for (let i = 0; i < lastSampleIndex - 1; i += sampleIncrement) {
           pkgVersionInfos.push(sortedPkgVersionInfos[i])
         }
         for (let i = lastSampleIndex; i < sortedPkgVersionInfos.length; i++) {
