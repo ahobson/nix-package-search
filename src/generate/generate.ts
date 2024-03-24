@@ -157,24 +157,18 @@ async function updateAllPackages(
       const sortedPkgVersionInfos = Object.values(pkgVersions).sort(
         compareSemanticVersions
       )
-      // need to filter packages with more than 200 versions to reduce
-      // bloat
+      // need to filter packages with many versions to reduce bloat
       let pkgVersionInfos = sortedPkgVersionInfos
-      if (pkgVersionInfos.length > 200) {
+      if (pkgVersionInfos.length > 150) {
         pkgVersionInfos = []
         const lastSampleIndex = sortedPkgVersionInfos.length - 100
         const sampleIncrement = Math.floor(lastSampleIndex / 20)
         for (let i = 0; i < lastSampleIndex; i += sampleIncrement) {
-          console.log(`DREW DEBUG sskpush ${i}`)
           pkgVersionInfos.push(sortedPkgVersionInfos[i])
         }
         for (let i = lastSampleIndex; i < sortedPkgVersionInfos.length; i++) {
           pkgVersionInfos.push(sortedPkgVersionInfos[i])
         }
-        console.log(
-          `DREW DEBUG ${pname} ${pkgVersionInfos.length} ${pkgVersionInfos[0]}`
-        )
-        console.log(`DREW DEBUG 1 ${pkgVersionInfos[0]}`)
       }
       pkgVersionInfos.forEach((pkgVersionInfo) => {
         const line = [
