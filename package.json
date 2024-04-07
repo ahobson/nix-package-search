@@ -46,7 +46,7 @@
     "@types/lodash": "^4.17.0",
     "@types/node": "^20.11.30",
     "@types/react": "^18.2.73",
-    "@types/react-dom": "^18.2.22",
+    "@types/react-dom": "^18.2.24",
     "@vitejs/plugin-react": "^4",
     "gh-pages": "^6.1.1",
     "jsdom": "^24.0.0",
