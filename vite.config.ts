@@ -1,13 +1,13 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import svgLoader from 'vite-svg-loader'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/nix-package-search/',
-  plugins: [react()],
+  plugins: [svgLoader()],
   test: {
     environment: 'jsdom',
-    setupFiles: ['./src/setupTests.ts'],
+    //   setupFiles: ['./src/setupTests.ts'],
   },
 })

@@ -24,21 +24,17 @@ jobs:
           nix_file: 'nix/default.nix'
           nix_version: https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "yarn-cache-dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-
       - uses: actions/cache@v4
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        id: npm-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.yarn-cache-dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm/_cacache
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-npm-
 
-      - name: Install yarn packages
+      - name: Install npm packages
         run: |
-          yarn --prefer-offline
+          npm ci
 
       # see https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
       - name: Checkout nixpkgs
@@ -57,7 +53,7 @@ jobs:
       - name: Test build
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
-          yarn test && yarn build
+          npm test && npm build
 
       - name: Publish to pages
         if: ${{ github.ref == 'refs/heads/main' }}
@@ -65,4 +61,4 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          VITE_GITHUB_SHA="${GITHUB_SHA}" yarn deploy
+          VITE_GITHUB_SHA="${GITHUB_SHA}" npm deploy
