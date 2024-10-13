@@ -31,25 +31,18 @@ body {
     border-bottom: none;
 }
 
-/* .home-menu .pure-menu-heading { */
-/*     color: white; */
-/*     font-weight: 400; */
-/*     font-size: 120%; */
-/* } */
-
-.home-menu .pure-menu-selected a {
-  color: darkblue;
-  border-bottom: red;
+.pure-menu-selected>.pure-menu-link, .pure-menu-selected>.pure-menu-link:visited {
+  border-bottom: 1px red;
 }
 
 .home-menu a {
-    color: #F5F5F5;
+    color: grey;
 }
 .home-menu li a:hover,
 .home-menu li a:focus {
     background: none;
     border: none;
-    /* color: #AECFE5; */
+    color: darkblue;
 }
 
 /*

@@ -9,7 +9,7 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -f -d dist",
-    "dev": "vite",
+    "dev": "VITE_GITHUB_SHA=$(git rev-parse --short HEAD) vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest"
