@@ -50,7 +50,7 @@ jobs:
 
       - name: Run Regenerate
         run: |
-          ./node_modules/.bin/ts-node bin/regenerate.ts
+          ./node_modules/.bin/tsx bin/regenerate.ts
         env:
           NIXPKGS_DIR: nixpkgs-cache/nixpkgs
 
