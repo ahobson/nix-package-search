@@ -8,31 +8,13 @@ in buildEnv {
   name = "nix-package-search-packages";
   paths = [
 
-    (import
-      (builtins.fetchGit {
-        # Descriptive name to make the store path easier to identify
-        name = "nodejs-18.13.0";
-        url = "https://github.com/NixOS/nixpkgs/";
-        ref = "refs/heads/nixpkgs-unstable";
-        rev = "2d38b664b4400335086a713a0036aafaa002c003";
-      })
-      { }).nodejs-18_x
-
     (import (builtins.fetchGit {
       # Descriptive name to make the store path easier to identify
-      name = "yarn-1.22.19";
+      name = "nodejs-20.9.0";
       url = "https://github.com/NixOS/nixpkgs/";
       ref = "refs/heads/nixpkgs-unstable";
-      rev = "d218e35480c7ea6cbb50ea68e6b1d88f5d2dc451";
-    }) {}).yarn
-
-    (import (builtins.fetchGit {
-      # Descriptive name to make the store path easier to identify
-      name = "pre-commit-2.13.0";
-      url = "https://github.com/NixOS/nixpkgs/";
-      ref = "refs/heads/nixpkgs-unstable";
-      rev = "f62847d5655a6954fc946e5d9c81424171cc281e";
-    }) {}).pre-commit
+      rev = "2699484d57ff42254c88197d4d4ac68c06d61df6";
+    }) {}).nodejs_20
 
     (import (builtins.fetchGit {
       # Descriptive name to make the store path easier to identify

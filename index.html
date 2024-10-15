@@ -3,19 +3,22 @@
   <!-- Deployed SHA: %VITE_GITHUB_SHA% -->
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="%BASE_URL%favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="stylesheet" href="css/base-min.css">
+    <link rel="stylesheet" href="css/pure-min.css">
+    <link rel="stylesheet" href="css/grids-responsive-min.css">
+    <link rel="stylesheet" href="css/styles.css">
     <meta
       name="description"
       content="Search nix packages install old versions"
     />
-    <link rel="apple-touch-icon" href="%BASE_URL%logo192.png" />
+    <link rel="apple-touch-icon" href="/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%BASE_URL%manifest.json" />
+    <link rel="manifest" href="/manifest.json" />
     <title>Nix Package Search</title>
     <!-- Start Single Page Apps for GitHub Pages -->
     <script type="text/javascript">
@@ -43,28 +46,91 @@
     <!-- End Single Page Apps for GitHub Pages -->
   </head>
   <body>
-    <noscript>
-      <pre>
-        Every night the list of packages is exported and then merged
-        into a single CSV file that has every package version.
+    <div class="header">
+      <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed" id="menu" hidden>
+        <ul class="pure-menu-list">
+          <li class="pure-menu-item pure-menu-selected" id="menu-home">
+            <a href="#" class="pure-menu-link">Home</a>
+          </li>
+          <li class="pure-menu-item" id="menu-search">
+            <a href="#" class="pure-menu-link">Search</a>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-        The CSV has a column for the pname, the nix package name, the
-        name, the version and the sha of the commit it was added.
-
-        For example, to find which sha go-15.10 appeared, you can run
-
-        curl -sSfL https://ahobson.github.io/nix-package-search/nix/nixpkgs-unstable/all_packages.csv | grep 'go-1.15.10'
-
-        The result would look like
-
-        go,go_1_15,go-1.15.10,1.15.10,674c39c08fb94d315cb9bc699da33fd1be4b4e2e
-      </pre>
-      <p>
-        If you enable javascript, you will be able to search packages
-        via your browser.
-      </p>
-    </noscript>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div class="container">
+      <div class="content">
+        <div class="pure-g">
+          <div class="pure-u-1 pure-u-md-3-5" id="home">
+            <p>
+              Every night the list of packages is exported and then merged into a
+              single CSV file that has every package version.
+            </p>
+            <p>
+              The CSV has a column for the <code>pname</code>, the nix
+              package name, the <code>name</code>,
+              the <code>version</code> and the <code>sha</code> of the
+              commit it was added.
+            </p>
+            <p>
+              For example, to find which sha <code>go-15.10</code> appeared, you can
+              run
+            </p>
+            <p>
+              <code>
+                curl -sSfL
+                https://ahobson.github.io/nix-package-search/nix/nixpkgs-unstable/all_packages.csv
+                | grep 'go-1.15.10'
+              </code>
+            </p>
+            The result would look like
+            <p>
+              <code>
+                go,go_1_15,go-1.15.10,1.15.10,674c39c08fb94d315cb9bc699da33fd1be4b4e2e
+              </code>
+            </p>
+            <div id="noscript">
+              <p>
+                If you enable javascript, you will be able to search packages
+                via your browser.
+              </p>
+            </div>
+          </div>
+          <div class="pure-u-1" id="search" hidden>
+            <form class="pure-form">
+              <input type="text" placeholder="Search" id="search-input"/>
+            </form>
+            <div id="table-container">
+              <table class="pure-table pure-table-bordered" id="search-results-table">
+                <thead>
+                  <tr>
+                    <th>Show/Hide Nix Expression</th>
+                    <th>Name</th>
+                    <th>Nix Package Name</th>
+                    <th>SHA</th>
+                  </tr>
+                </thead>
+                <tbody id="search-results-tbody"/>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <template id="nix-pkg-info-tmpl">
+      <tr>
+        <td class="nix-pkg-info-show-hide"/>
+        <td class="nix-pkg-info-name"/>
+        <td class="nix-pkg-info-nixPackageName"/>
+        <td class="nix-pkg-info-sha"/>
+      </tr>
+    </template>
+    <template id="nix-pkg-expr-tmpl">
+      <tr hidden>
+        <td class="nix-pkg-expr" colspan="4"/>
+      </tr>
+    </template>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

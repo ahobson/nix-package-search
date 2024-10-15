@@ -4,29 +4,15 @@
   "version": "0.1.0",
   "private": false,
   "dependencies": {
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
-    "@mui/icons-material": "^5.16.7",
-    "@mui/material": "^5.16.7",
-    "@mui/system": "^6.1.2",
-    "lodash": "^4.17.21",
-    "react": "^18",
-    "react-dom": "^18",
-    "react-router-dom": "^6",
     "sql.js-httpvfs": "^0.8.12"
   },
   "scripts": {
-    "predeploy": "yarn run build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -f -d dist",
-    "dev": "vite",
+    "dev": "VITE_GITHUB_SHA=$(git rev-parse --short HEAD) vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
   },
   "browserslist": {
     "production": [
@@ -41,22 +27,18 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.5.0",
-    "@testing-library/react": "^15.0.7",
-    "@types/lodash": "^4.17.10",
+    "@types/jsdom": "^21.1.7",
     "@types/node": "^22.7.4",
-    "@types/react": "^18.3.11",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4",
     "gh-pages": "^6.1.1",
     "jsdom": "^25.0.1",
     "prettier": "^3.3.3",
-    "sass": "^1.79.4",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.19.1",
     "typescript": "^5.6.2",
+    "vite-svg-loader": "^5.1.0",
     "vitest": "^2.1.2"
   },
   "engines": {
-    "node": ">=18.13.0 <20"
-  }
+    "node": ">=20.9.0 <21"
+  },
+  "type": "module"
 }

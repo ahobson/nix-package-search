@@ -9,6 +9,4 @@ async function main() {
   }
 }
 
-if (require.main) {
-  main()
-}
+main()
