@@ -32,7 +32,7 @@
     "gh-pages": "^6.2.0",
     "jsdom": "^25.0.1",
     "prettier": "^3.3.3",
-    "tsx": "^4.19.1",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.3",
     "vite-svg-loader": "^5.1.0",
     "vitest": "^2.1.3"
