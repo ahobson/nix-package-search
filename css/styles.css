@@ -1,0 +1,69 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+ * -- BASE STYLES --
+ * Most of these are inherited from Base, but I want to change a few.
+ */
+body {
+    line-height: 1.7em;
+    color: black;
+    font-size: 13px;
+}
+
+/*
+ * -- MENU STYLES --
+ * I want to customize how my .pure-menu looks at the top of the page
+ */
+
+.home-menu {
+    padding: 0.5em;
+    box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
+}
+.home-menu {
+    background: lightblue;
+}
+.pure-menu.pure-menu-fixed {
+    /* Fixed menus normally have a border at the bottom. */
+    border-bottom: none;
+}
+
+.pure-menu-selected>.pure-menu-link, .pure-menu-selected>.pure-menu-link:visited {
+  border-bottom: 1px red;
+}
+
+.home-menu a {
+    color: grey;
+}
+.home-menu li a:hover,
+.home-menu li a:focus {
+    background: none;
+    border: none;
+    color: darkblue;
+}
+
+/*
+ * -- CONTENT STYLES --
+ */
+
+.header {
+    padding: 1em 1em 3em;
+}
+
+.container {
+    padding: 1em 1em 3em;
+}
+
+/* We want to give the content area some more padding */
+.content {
+    padding: 1em 1em 3em;
+}
+
+
+.nix-pkg-info-show-hide svg {
+  width: auto;
+  height: 1.7em;
+}
