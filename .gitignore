@@ -24,7 +24,7 @@ yarn-debug.log*
 yarn-error.log*
 /.log
 /.npmglobal
-/public/nix
 /.envrc.local
 /.nix-hash
 /tmp/
+public/nix/nixpkgs-unstable/all_packages.sqlite3
