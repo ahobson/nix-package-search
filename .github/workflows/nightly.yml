@@ -9,6 +9,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   regenerate_and_deploy:
     if: ${{ github.ref == 'refs/heads/main' }}
@@ -65,7 +68,9 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git commit -am "Regenerated Files"
+          git commit -am "Regenerated Files" public/nix
+          git push
+
       - name: build
         run: |
           VITE_GITHUB_SHA="${GITHUB_SHA}" npm run build
