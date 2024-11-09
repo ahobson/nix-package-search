@@ -10,12 +10,86 @@ on:
       - main
 
 jobs:
-  regenerate:
+  regenerate_and_deploy:
+    if: ${{ github.ref == 'refs/heads/main' }}
     name: Regenerate nix package index
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name:  Nix packages
+        uses: ahobson/cache-install@adh-nix-version-v4
+        with:
+          key: nix-${{ hashFiles('nix/default.nix') }}
+          nix_file: 'nix/default.nix'
+          nix_version: https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+
+      - name: npm yarn cache directory path
+        id: npm-cache-dir-path
+        run: echo "npm-cache-dir=$(npm config get cache)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v4
+        id: npm-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.npm-cache-dir-path.outputs.npm-cache-dir }}/_cacache
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Install npm packages
+        run: |
+          npm ci
+
+      # see https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
+      - name: Checkout nixpkgs
+        run: >-
+          mkdir -p nixpkgs-cache &&
+          cd nixpkgs-cache &&
+          test -d nixpkgs ||
+          git clone --filter=tree:0 --single-branch --branch=nixpkgs-unstable https://github.com/NixOS/nixpkgs.git
+
+      - name: Run Regenerate
+        run: |
+          ./node_modules/.bin/tsx bin/regenerate.ts
+        env:
+          NIXPKGS_DIR: nixpkgs-cache/nixpkgs
+
+      - name: Commit Generated Files
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git commit -am "Regenerated Files"
+      - name: build
+        run: |
+          VITE_GITHUB_SHA="${GITHUB_SHA}" npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: 'dist'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  regenerate_and_test:
+    if: ${{ github.ref != 'refs/heads/main' }}
+    name: Test regenerate nix package index
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          lfs: true
 
       - name:  Nix packages
         uses: ahobson/cache-install@adh-nix-version-v4
@@ -55,14 +129,5 @@ jobs:
           NIXPKGS_DIR: nixpkgs-cache/nixpkgs
 
       - name: Test build
-        if: ${{ github.ref != 'refs/heads/main' }}
         run: |
-          npm test && npm run build
-
-      - name: Publish to pages
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          VITE_GITHUB_SHA="${GITHUB_SHA}" npm run deploy
+          npm test && VITE_GITHUB_SHA="${GITHUB_SHA}" npm run build
