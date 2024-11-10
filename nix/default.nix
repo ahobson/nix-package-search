@@ -1,4 +1,4 @@
-# Use https://ahobson.github.io/nix-package-search/#/search to find
+# Use https://ahobson.github.io/nix-package-search
 # pinned versions
 
 let

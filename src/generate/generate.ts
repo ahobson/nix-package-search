@@ -115,7 +115,7 @@ async function updateAllPackages(
   })
   if (allPkgCmd.error || allPkgCmd.status != 0) {
     console.log(
-      `WARN: nix-env problem, skipping: '${allPkgCmd.error}' ${allPkgCmd.stderr}`
+      `WARN: nix-env problem, skipping: '${allPkgCmd.error}' (${allPkgCmd.status}) ${allPkgCmd.stderr}`
     )
     return Promise.resolve(0)
   }
