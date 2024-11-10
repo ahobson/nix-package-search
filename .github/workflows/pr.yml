@@ -55,6 +55,9 @@ jobs:
 
       - name: Run Regenerate
         run: |
+          curl -sSfL -O https://ahobson.github.io/nix-package-search/nix/nixpkgs-unstable/all_packages.csv
+          curl -sSfL -O https://ahobson.github.io/nix-package-search/nix/nixpkgs-unstable/last_seen.txt
+          mv all_packages.csv last_seen.txt public/nix/nixpkgs-unstable
           ./node_modules/.bin/tsx bin/regenerate.ts
         env:
           NIXPKGS_DIR: nixpkgs-cache/nixpkgs
