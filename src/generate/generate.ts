@@ -213,19 +213,6 @@ const ALL_PACKAGES_CSV = 'public/nix/nixpkgs-unstable/all_packages.csv'
 const ALL_PACKAGES_SQLITE = 'public/nix/nixpkgs-unstable/all_packages.sqlite3'
 
 export async function generateUpdate(): Promise<void> {
-  // get the latest info from the gh-pages branch
-
-  const fetch = child.spawnSync('git', ['fetch', 'origin'], {
-    encoding: 'utf8',
-  })
-  runOrExit('git fetch', fetch)
-
-  const restore = child.spawnSync(
-    'git',
-    ['--work-tree', 'public', 'restore', '-s', 'origin/gh-pages', 'nix'],
-    { encoding: 'utf8' }
-  )
-  runOrExit('git restore', restore)
   const lastSeenFile = path.resolve(LAST_SEEN)
   const tmpDir = path.resolve('/tmp')
   const allPackagesCsvFile = path.resolve(ALL_PACKAGES_CSV)
