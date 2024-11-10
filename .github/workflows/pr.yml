@@ -1,22 +1,21 @@
-name: Package Update
+name: Test Regenerate on PR
 on:
-  schedule:
-    - cron: '15 1 * * * '
-  push:
+  pull_request:
     branches:
       - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
 
 jobs:
-  regenerate_and_deploy:
-    if: ${{ github.ref == 'refs/heads/main' }}
-    name: Regenerate nix package index
+  regenerate_and_test:
+    if: ${{ github.ref != 'refs/heads/main' }}
+    name: Test regenerate nix package index
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -60,25 +59,6 @@ jobs:
         env:
           NIXPKGS_DIR: nixpkgs-cache/nixpkgs
 
-      # - name: Commit Generated Files
-      #   run: |
-      #     git config user.name github-actions
-      #     git config user.email github-actions@github.com
-      #     git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-      #     git commit -m "Regenerated Files" public/nix
-      #     git push
-
-      - name: build
+      - name: Test build
         run: |
-          VITE_GITHUB_SHA="${GITHUB_SHA}" npm run build
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: 'dist'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          npm test && VITE_GITHUB_SHA="${GITHUB_SHA}" npm run build
