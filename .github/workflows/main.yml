@@ -1,0 +1,16 @@
+name: Package Update
+on:
+  schedule:
+    - cron: '15 1 * * * '
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  regenerate_and_test:
+    uses: ./.github/workflows/regenerate.yml
