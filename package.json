@@ -35,7 +35,7 @@
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "vite-svg-loader": "^5.1.0",
-    "vitest": "^3.0.4"
+    "vitest": "^3.0.5"
   },
   "engines": {
     "node": ">=20.9.0 <21"
