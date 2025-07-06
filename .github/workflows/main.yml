@@ -1,7 +1,7 @@
 name: Package Update
 on:
   schedule:
-    - cron: '15 1 * * * '
+    - cron: '15 1 * * 1'
   push:
     branches:
       - main
