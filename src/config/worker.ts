@@ -31,7 +31,7 @@ const config: SplitFileConfigInner = (() => {
     const c: SplitFileConfigInner = {
       requestChunkSize: 4096,
       cacheBust: gitSha,
-      serverMode: 'chunked', // file is just a plain old full sqlite database
+      serverMode: 'chunked',
       urlPrefix: url,
       databaseLengthBytes: contentLength,
       serverChunkSize: contentLength,
@@ -40,7 +40,7 @@ const config: SplitFileConfigInner = (() => {
     return c
   }
   return {
-    serverMode: 'full',
+    serverMode: 'full', // file is just a plain old full sqlite database
     requestChunkSize: 4096,
     url,
     cacheBust: gitSha,
