@@ -51,8 +51,8 @@ jobs:
           curl -sSfL -O https://ahobson.github.io/nix-package-search/nix/nixpkgs-unstable/last_seen.txt
           mv all_packages.csv last_seen.txt public/nix/nixpkgs-unstable
           ./node_modules/.bin/tsx bin/regenerate.ts
-          rm -f public/nix/nixpkgs-unstable/all_packages.sqlite30
-          ln -s all_packages.sqlite3 public/nix/nixpkgs-unstable/all_packages.sqlite30
+          mv public/nix/nixpkgs-unstable/all_packages.sqlite3 public/nix/nixpkgs-unstable/all_packages.sqlite30
+          ln -s all_packages.sqlite30 public/nix/nixpkgs-unstable/all_packages.sqlite3
         env:
           NIXPKGS_DIR: nixpkgs-cache/nixpkgs
 
