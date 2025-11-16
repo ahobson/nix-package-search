@@ -1,4 +1,4 @@
-import { getDbWorker } from './worker'
+import { query } from './worker'
 
 export interface IPackage {
   id: string
@@ -65,7 +65,7 @@ function isQueryPackage(item: unknown): item is QueryPackage {
   )
 }
 
-function queryToIPackage(u: unknown): IPackage | undefined {
+function queryToIPackage(u: any): IPackage | undefined {
   if (!isQueryPackage(u)) {
     return undefined
   }
@@ -80,14 +80,14 @@ function queryToIPackage(u: unknown): IPackage | undefined {
 }
 
 export async function prefixSearch(prefix: string): Promise<IPackage[]> {
-  return getDbWorker().then(async (worker) => {
-    return await worker.db
-      .query(
-        `SELECT * FROM packages WHERE name LIKE ? OR nix_package_name LIKE ? LIMIT 200`,
-        [prefix + '%', prefix + '%']
-      )
-      .then((value) => {
-        return value.map((v) => queryToIPackage(v)).filter(isIPackage)
-      })
-  })
+  return query(
+    `SELECT * FROM packages WHERE name LIKE $name_pattern OR nix_package_name LIKE $package_name_pattern LIMIT 200`,
+    { $name_pattern: prefix + '%', $package_name_pattern: prefix + '%' }
+  )
+    .then((rows) => {
+      return rows.map((r) => queryToIPackage(r)).filter(isIPackage)
+    })
+    .catch((e) => {
+      return []
+    })
 }

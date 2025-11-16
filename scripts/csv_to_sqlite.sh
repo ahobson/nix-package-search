@@ -11,6 +11,8 @@ csv_path="$1"
 sqlite_path="$2"
 
 sqlite3 <<_EOF
+PRAGMA page_size = 1024;
+PRAGMA journal_mode = delete;
 CREATE TABLE packages(
   "pname" TEXT NOT NULL,
   "nix_package_name" TEXT NOT NULL,
@@ -19,8 +21,6 @@ CREATE TABLE packages(
   "sha" TEXT NOT NULL);
 CREATE INDEX packages_name_idx ON packages (name COLLATE NOCASE);
 CREATE INDEX packages_nix_package_name_idx ON packages (nix_package_name COLLATE NOCASE);
-pragma journal_mode = delete;
-pragma page_size = 4096;
 
 .mode csv
 .import ${csv_path} packages

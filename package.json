@@ -3,9 +3,6 @@
   "homepage": "https://ahobson.github.io/nix-package-search/",
   "version": "0.1.0",
   "private": false,
-  "dependencies": {
-    "sql.js-httpvfs": "^0.8.12"
-  },
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -f -d dist",
@@ -34,11 +31,15 @@
     "prettier": "^3.6.2",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
+    "vite-plugin-wasm": "^3.5.0",
     "vite-svg-loader": "^5.1.0",
     "vitest": "^4.0.3"
   },
   "engines": {
     "node": ">=20.9.0 <21"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "sqlite-wasm-http": "^1.2.0"
+  }
 }

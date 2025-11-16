@@ -10,10 +10,10 @@ in buildEnv {
 
     (import (builtins.fetchGit {
       # Descriptive name to make the store path easier to identify
-      name = "nodejs-20.9.0";
+      name = "nodejs-20.19.5";
       url = "https://github.com/NixOS/nixpkgs/";
       ref = "refs/heads/nixpkgs-unstable";
-      rev = "2699484d57ff42254c88197d4d4ac68c06d61df6";
+      rev = "8ec68fd78a40d98a57bd20957169e6f9108d624f";
     }) {}).nodejs_20
 
     (import (builtins.fetchGit {
