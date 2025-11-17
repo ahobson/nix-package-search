@@ -7,13 +7,10 @@ const publicPath = import.meta.env.BASE_URL || ''
 const remoteURL = `${publicPath}nix/nixpkgs-unstable/all_packages.sqlite3`
 
 const httpBackend = createHttpBackend({
+  backendType: 'sync',
   maxPageSize: 1024, // this is the current default SQLite page size
   timeout: 10000, // 10s
   cacheSize: 4096, // 4 MB
-  // seemingly github pages CDN returns compressed size
-  headers: {
-    'accept-encoding': 'identity',
-  },
 })
 
 export async function query(sql: string, bind: object): Promise<any[]> {
