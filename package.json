@@ -40,6 +40,6 @@
   },
   "type": "module",
   "dependencies": {
-    "sqlite-wasm-http": "github:ahobson/sqlite-wasm-http#1eaf6bb"
+    "sqlite-wasm-http": "github:ahobson/sqlite-wasm-http#909d325"
   }
 }

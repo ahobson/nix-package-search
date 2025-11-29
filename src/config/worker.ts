@@ -11,6 +11,7 @@ const httpBackend = createHttpBackend({
   maxPageSize: 1024, // this is the current default SQLite page size
   timeout: 10000, // 10s
   cacheSize: 4096, // 4 MB
+  openMethod: 'GET', // use GET + byte range
 })
 
 export async function query(sql: string, bind: object): Promise<any[]> {
