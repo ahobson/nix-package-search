@@ -28,7 +28,7 @@
     "@types/node": "^25.0.6",
     "gh-pages": "^6.3.0",
     "jsdom": "^27.4.0",
-    "prettier": "^3.7.4",
+    "prettier": "^3.8.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vite-plugin-wasm": "^3.5.0",
