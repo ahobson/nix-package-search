@@ -30,7 +30,7 @@
     "jsdom": "^29.0.1",
     "prettier": "^3.8.1",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "vite-plugin-wasm": "^3.6.0",
     "vite-svg-loader": "^5.1.1",
     "vitest": "^4.1.2"
